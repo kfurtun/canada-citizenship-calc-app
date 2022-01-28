@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "CitizenshipCalculator",
+    "slug": "CitizenshipCalculator",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "CitizenshipCalculator"
+}
