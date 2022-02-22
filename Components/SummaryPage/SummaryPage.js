@@ -12,6 +12,7 @@ import { dateConflictDetector } from "../dateConflictDetector";
 import { AnswerContext } from "../AnswerContext";
 import { theme } from "../theme";
 import { SummaryBubble } from "../SummaryBubble";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 const Item = ({ title }) => <View style={styles.item}>{title}</View>;
 
@@ -26,6 +27,20 @@ export const SummaryPage = (props) => {
   const renderItem = ({ item }) => <Item title={item} />;
 
   const DATA = [
+    checkConflict.length > 0 && (
+      <View style={styles.bubbleContainer}>
+        <View style={styles.warningContainer}>
+          <Icon
+            name="exclamation"
+            size={30}
+            color={theme.background.backgroundColor}
+          />
+        </View>
+        <Text style={styles.warningText}>
+          There is a conflict with your dates, please double check your dates!
+        </Text>
+      </View>
+    ),
     <SummaryBubble
       state={state}
       question="second"
@@ -66,9 +81,6 @@ export const SummaryPage = (props) => {
       <View>
         {checkConflict.length > 0 ? (
           <>
-            <Text>
-              There is a conflict with your dates, please double check
-            </Text>
             <Button title="Submit" disabled={true} />
           </>
         ) : (
@@ -88,4 +100,23 @@ const styles = StyleSheet.create({
   container: { ...theme.background },
 
   item: { marginVertical: 12 },
+
+  bubbleContainer: {
+    marginLeft: 30,
+    padding: 15,
+    borderRadius: 10,
+    height: "auto",
+    backgroundColor: "lightgray",
+    width: Dimensions.get("window").width - 60,
+  },
+
+  warningText: {
+    color: theme.background.backgroundColor,
+    textAlign: "center",
+    marginTop: 15,
+  },
+
+  warningContainer: {
+    alignItems: "center",
+  },
 });

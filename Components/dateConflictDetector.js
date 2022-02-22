@@ -23,6 +23,7 @@ export const dateConflictDetector = (state) => {
   }
 
   const coincidenceArr = [];
+  console.log(dateArr, "date");
 
   dateArr.forEach((comparedQuestion) => {
     dateArr.forEach((item) => {
@@ -31,9 +32,13 @@ export const dateConflictDetector = (state) => {
         console.log(comparedQuestion, "compared");
 
         if (
-          (item.from < comparedQuestion.from && item.to) >
-            comparedQuestion.from ||
-          (item.from > comparedQuestion.from && item.to < comparedQuestion.from)
+          (item.from < comparedQuestion.from &&
+            item.to > comparedQuestion.from) ||
+          (item.from > comparedQuestion.from &&
+            item.to < comparedQuestion.from) ||
+          (item.from === comparedQuestion.from &&
+            item.to > comparedQuestion.to) ||
+          (item.from === comparedQuestion.from && item.to < comparedQuestion.to)
         ) {
           coincidenceArr.push(item);
         }
@@ -46,7 +51,9 @@ export const dateConflictDetector = (state) => {
       if (item.from && item !== comparedDate) {
         if (
           (item.from < comparedDate.from && item.to > comparedDate.from) ||
-          (item.from >= comparedDate.from && item.to < comparedDate.from)
+          (item.from > comparedDate.from && item.to < comparedDate.from) ||
+          (item.from === comparedDate.from && item.to > comparedDate.to) ||
+          (item.from === comparedDate.from && item.to < comparedDate.to)
         ) {
           coincidenceArr.push(item);
         }
