@@ -20,6 +20,8 @@ export const SummaryPage = (props) => {
   const { navigation } = props;
 
   const checkConflict = dateConflictDetector(state);
+  console.log(checkConflict.length, "length");
+  console.log(checkConflict, "check");
 
   const renderItem = ({ item }) => <Item title={item} />;
 

@@ -23,7 +23,6 @@ export const SummaryBubble = (props) => {
   let DATA = [];
   if (state[question].answer) {
     DATA = [...Object.values(state[question].answer)];
-    console.log(DATA, "data");
   }
 
   const renderItem = ({ item, index }) => {
