@@ -90,7 +90,10 @@ export const PrQuestion = (props) => {
       <View style={styles.buttonContainer}>
         <View style={styles.button}>
           <Button
-            onPress={() => navigation.navigate("TravelLogFirstQuestion")}
+            onPress={() => {
+              fifthQuestion({ from: date });
+              navigation.navigate("TravelLogFirstQuestion");
+            }}
             mode="contained"
             title="Next >"
             color={theme.questionText.color}

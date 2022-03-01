@@ -14,16 +14,18 @@ import { AnswerContext } from "../AnswerContext";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export const DateRangeDetails = (props) => {
-  const deleteAction = React.useContext(AnswerContext);
-  const { state, destination } = props;
+  const {
+    actions: { deleteRow },
+  } = React.useContext(AnswerContext);
+  const { state, destination, question } = props;
 
-  const handleClick = (item) => {
-    const index = copiedData.indexOf(item);
-    console.log(index, "index");
+  const handleClick = (index) => {
+    copiedData.splice(index, 1);
+    deleteRow({ ...copiedData }, question);
   };
 
   const copiedData = [...Object.values(state)];
-  console.log(state, "seventh");
+
   copiedData.sort((a, b) => {
     if (b.from === a.from) {
       return new Date(b.to) - new Date(a.to);
@@ -32,7 +34,7 @@ export const DateRangeDetails = (props) => {
     }
   });
 
-  const Item = ({ title }) => {
+  const Item = ({ title, index }) => {
     return (
       <View style={styles.itemContainer}>
         <View>
@@ -45,7 +47,7 @@ export const DateRangeDetails = (props) => {
           )}
         </View>
 
-        <TouchableOpacity onPress={() => console.log("zaa")}>
+        <TouchableOpacity onPress={() => handleClick(index)}>
           <View>
             <Icon
               name="trash"
@@ -57,16 +59,15 @@ export const DateRangeDetails = (props) => {
       </View>
     );
   };
-  const DATA = [...copiedData];
+  // const DATA = [...copiedData];
 
-  const renderItem = ({ item }) => <Item title={item} />;
-  console.log(DATA, "data");
+  const renderItem = ({ item, index }) => <Item title={item} index={index} />;
 
   return (
     <>
       <View style={styles.container}>
         <FlatList
-          data={DATA}
+          data={copiedData}
           renderItem={renderItem}
           keyExtractor={() => Math.random()}
         />

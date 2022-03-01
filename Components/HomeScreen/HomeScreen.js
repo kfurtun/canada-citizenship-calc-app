@@ -1,26 +1,74 @@
 import React from "react";
+import { getMyObject } from "../storage";
 
-import { StyleSheet, Text, View, TextInput, Button, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Image,
+  Dimensions,
+} from "react-native";
+import { AnswerContext } from "../AnswerContext";
+import { theme } from "../theme";
+import { getAllKeys } from "../storage";
+import { UserList } from "../UserList";
 
 export const HomeScreen = ({ navigation }) => {
+  const {
+    state,
+    name,
+    setName,
+    users,
+    setUsers,
+    shouldFetch,
+    actions: { getUser, resetState },
+  } = React.useContext(AnswerContext);
+
   const startQuestionnaire = () => {
+    console.log(state, "home");
+    resetState();
     navigation.navigate("StudyQuestionFirst");
   };
+
+  React.useEffect(() => {
+    getAllKeys().then((data) => setUsers(data));
+  }, [shouldFetch]);
+
+  const onUserClicked = (user) => {
+    getMyObject(user)
+      .then((data) => getUser(data))
+      .then(() => {
+        setName(user);
+        navigation.navigate("SummaryPage");
+      });
+  };
+  console.log(users, "users");
   return (
     <View style={styles.container}>
       <View style={styles.flagContainer}>
         <Image
           style={styles.canadaFlag}
-          source={require("../../Images/kindpng_1313928.png")}
+          source={require("../../Images/canada_flag.jpg")}
         />
       </View>
-      <View style={styles.button}>
-        <Button
-          title="Start questionnaire"
-          onPress={startQuestionnaire}
-        ></Button>
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoText}>
+          To start, please enter the name (or nickname) and tap start button
+        </Text>
       </View>
-      <View></View>
+      <View style={styles.startContainer}>
+        <TextInput style={styles.input} onChangeText={setName} value={name} />
+        <View style={styles.button}>
+          <Button
+            title="Start"
+            onPress={startQuestionnaire}
+            color={theme.questionText.color}
+          />
+        </View>
+      </View>
+      <UserList onUserClicked={onUserClicked} users={users} />
     </View>
   );
 };
@@ -28,15 +76,42 @@ export const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: theme.background.backgroundColor,
     alignItems: "center",
-    justifyContent: "center",
   },
-  canadaFlag: { width: 300, height: 150 },
+  canadaFlag: { width: 330, height: 150 },
   flagContainer: {
-    flex: 1,
+    padding: 2,
+    borderRadius: 10,
+    height: "auto",
+    backgroundColor: "white",
+    marginTop: 30,
+    width: Dimensions.get("window").width - 60,
     alignItems: "center",
     justifyContent: "center",
   },
-  button: { flex: 1 },
+  button: { ...theme.button, width: 80 },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 2,
+    padding: 10,
+    width: 240,
+    borderColor: theme.background.backgroundColor,
+  },
+  infoContainer: {
+    ...theme.bubbleContainer,
+    width: Dimensions.get("window").width - 60,
+    marginLeft: 0,
+    marginTop: 30,
+  },
+  infoText: { textAlign: "center" },
+
+  startContainer: {
+    ...theme.bubbleContainer,
+    width: Dimensions.get("window").width - 60,
+    marginLeft: 0,
+    marginTop: 30,
+    alignItems: "center",
+  },
 });

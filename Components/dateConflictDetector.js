@@ -3,34 +3,33 @@ export const dateConflictDetector = (state) => {
   const travelArr = [];
   if (state.second.answer) {
     Object.values(state.second.answer).forEach((item) => {
-      dateArr.push(item);
+      dateArr.push({ from: new Date(item.from), to: new Date(item.to) });
     });
   }
   if (state.fourth.answer) {
     Object.values(state.fourth.answer).forEach((item) => {
-      dateArr.push(item);
+      dateArr.push({ from: new Date(item.from), to: new Date(item.to) });
     });
   }
 
   if (state.seventh.answer) {
     Object.values(state.seventh.answer).forEach((item) => {
-      travelArr.push(item);
+      dateArr.push({ from: new Date(item.from), to: new Date(item.to) });
     });
   }
 
   if (state.fifth.answer) {
-    dateArr.push({ ...state.fifth.answer, to: state.fifth.answer.from });
+    dateArr.push({
+      from: new Date(state.fifth.answer.from),
+      to: new Date(state.fifth.answer.from),
+    });
   }
 
   const coincidenceArr = [];
-  console.log(dateArr, "date");
 
   dateArr.forEach((comparedQuestion) => {
     dateArr.forEach((item) => {
       if (item.from && item !== comparedQuestion) {
-        console.log(item, "item");
-        console.log(comparedQuestion, "compared");
-
         if (
           (item.from < comparedQuestion.from &&
             item.to > comparedQuestion.from) ||

@@ -1,42 +1,8 @@
 import React from "react";
-import { setObjectValue, getMyObject } from "../storage";
+import { setObjectValue, getMyObject, getAllKeys, clearAll } from "../storage";
+import { initialState } from "../initialState";
 
 export const AnswerContext = React.createContext(null);
-const initialState = {
-  first: {
-    question: "Have you ever been in Canada with study permit?",
-    answer: null,
-  },
-  second: {
-    question:
-      " Please select the dates while you were or are studying in Canada",
-    answer: null,
-  },
-  third: {
-    question: "Have you ever been in Canada with work permit?",
-    answer: null,
-  },
-  fourth: {
-    question:
-      " Please select the dates while you were or are working in Canada",
-    answer: null,
-  },
-  fifth: {
-    question:
-      "Please enter the date when you have become permanent resident of Canada",
-    answer: null,
-  },
-  sixth: {
-    question:
-      "Have you ever travelled outside of Canada while you are a permanent resident of Canada?",
-    answer: null,
-  },
-  seventh: {
-    question:
-      "Please enter all your international travels while you are a permanent resident of Canada",
-    answer: null,
-  },
-};
 
 function reducer(state, action) {
   switch (action.type) {
@@ -47,7 +13,11 @@ function reducer(state, action) {
         ...state,
         second: {
           ...state.second,
-          answer: { ...state.second.answer, [action.key]: action.answer },
+          answer: {
+            ...state.second.answer,
+            [parseInt(state.second.index) + 1]: action.answer,
+          },
+          index: parseInt(state.second.index) + 1,
         },
       };
     case "third-question":
@@ -57,7 +27,11 @@ function reducer(state, action) {
         ...state,
         fourth: {
           ...state.fourth,
-          answer: { ...state.fourth.answer, [action.key]: action.answer },
+          answer: {
+            ...state.fourth.answer,
+            [parseInt(state.fourth.index) + 1]: action.answer,
+          },
+          index: parseInt(state.fourth.index) + 1,
         },
       };
     case "fifth-question":
@@ -69,11 +43,27 @@ function reducer(state, action) {
         ...state,
         seventh: {
           ...state.seventh,
-          answer: { ...state.seventh.answer, [action.key]: action.answer },
+          answer: {
+            ...state.seventh.answer,
+            [parseInt(state.seventh.index) + 1]: action.answer,
+          },
+          index: parseInt(state.seventh.index) + 1,
         },
       };
+    case "reset-state":
+      return initialState;
+    case "get-user":
+      return action.userData;
+
     case "delete-row":
-      return delete state[action.key].answer[index];
+      return {
+        ...state,
+        [action.question]: {
+          ...state[action.question],
+          answer: action.data,
+          index: parseInt(state[action.question].index) - 1,
+        },
+      };
     default:
       throw new Error(`Unrecognized action: ${action.type}`);
   }
@@ -81,28 +71,27 @@ function reducer(state, action) {
 export const AnswerProvider = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  //   React.useEffect(async () => {
-  //     const result = await getMyObject();
-  //     if (!result) {
-  //       await setObjectValue(initialState);
-  //     }
+  const [name, setName] = React.useState("");
+  const [users, setUsers] = React.useState([]);
+  const [shouldFetch, setShouldFetch] = React.useState(false);
 
-  //     console.log(result, "result");
-  //   }, [state]);
+  // React.useEffect(() => {
+  //   clearAll();
+  // }, []);
 
   const firstQuestion = (answer) => {
     dispatch({ type: "first-question", answer });
   };
-  const secondQuestion = (answer, key) => {
-    dispatch({ type: "second-question", answer, key });
+  const secondQuestion = (answer) => {
+    dispatch({ type: "second-question", answer });
   };
 
   const thirdQuestion = (answer) => {
     dispatch({ type: "third-question", answer });
   };
 
-  const fourthQuestion = (answer, key) => {
-    dispatch({ type: "fourth-question", answer, key });
+  const fourthQuestion = (answer) => {
+    dispatch({ type: "fourth-question", answer });
   };
 
   const fifthQuestion = (answer) => {
@@ -112,16 +101,21 @@ export const AnswerProvider = ({ children }) => {
   const sixthQuestion = (answer) => {
     dispatch({ type: "sixth-question", answer });
   };
-  const seventhQuestion = (answer, key) => {
-    dispatch({ type: "seventh-question", answer, key });
-  };
-  const deleteRow = (answer, key, index) => {
-    dispatch({ type: "delete-row", answer, key, index });
+  const seventhQuestion = (answer) => {
+    dispatch({ type: "seventh-question", answer });
   };
 
-  const [studyIndex, setStudyIndex] = React.useState(0);
-  const [workIndex, setWorkIndex] = React.useState(0);
-  const [travelIndex, setTravelIndex] = React.useState(0);
+  const resetState = () => {
+    dispatch({ type: "reset-state" });
+  };
+
+  const getUser = (userData) => {
+    dispatch({ type: "get-user", userData });
+  };
+  const deleteRow = (data, question) => {
+    dispatch({ type: "delete-row", data, question });
+  };
+
   return (
     <AnswerContext.Provider
       value={{
@@ -135,13 +129,15 @@ export const AnswerProvider = ({ children }) => {
           fifthQuestion,
           sixthQuestion,
           seventhQuestion,
+          resetState,
+          getUser,
         },
-        studyIndex,
-        setStudyIndex,
-        workIndex,
-        setWorkIndex,
-        travelIndex,
-        setTravelIndex,
+        shouldFetch,
+        setShouldFetch,
+        name,
+        setName,
+        users,
+        setUsers,
       }}
     >
       {children}

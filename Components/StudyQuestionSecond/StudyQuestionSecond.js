@@ -17,8 +17,8 @@ export const StudyQuestionSecond = (props) => {
   const {
     state,
     actions: { secondQuestion },
-    studyIndex,
-    setStudyIndex,
+    // studyIndex,
+    // setStudyIndex,
   } = React.useContext(AnswerContext);
 
   const { navigation } = props;
@@ -36,14 +36,11 @@ export const StudyQuestionSecond = (props) => {
   const onAddClick = () => {
     setShow(true);
 
-    secondQuestion(
-      {
-        from: date.from,
-        to: date.to,
-      },
-      studyIndex
-    );
-    setStudyIndex(studyIndex + 1);
+    secondQuestion({
+      from: date.from,
+      to: date.to,
+    });
+    // setStudyIndex(studyIndex + 1);
   };
 
   console.log(state, "state");
@@ -110,7 +107,9 @@ export const StudyQuestionSecond = (props) => {
       )}
 
       <View style={{ marginTop: 10 }}>
-        {show && <DateRangeDetails state={state.second.answer} />}
+        {show && (
+          <DateRangeDetails state={state.second.answer} question="second" />
+        )}
       </View>
     </DateLogTemplate>
   );

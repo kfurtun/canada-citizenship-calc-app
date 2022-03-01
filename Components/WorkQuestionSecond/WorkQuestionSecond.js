@@ -10,8 +10,8 @@ export const WorkQuestionSecond = (props) => {
   const {
     state,
     actions: { fourthQuestion },
-    workIndex,
-    setWorkIndex,
+    // workIndex,
+    // setWorkIndex,
   } = React.useContext(AnswerContext);
 
   const { navigation } = props;
@@ -28,14 +28,11 @@ export const WorkQuestionSecond = (props) => {
 
   const onAddClick = () => {
     setShow(true);
-    fourthQuestion(
-      {
-        from: date.from,
-        to: date.to,
-      },
-      workIndex
-    );
-    setWorkIndex(workIndex + 1);
+    fourthQuestion({
+      from: date.from,
+      to: date.to,
+    });
+    // setWorkIndex(workIndex + 1);
   };
 
   console.log(state);
@@ -102,7 +99,9 @@ export const WorkQuestionSecond = (props) => {
       )}
 
       <View style={{ marginTop: 10 }}>
-        {show && <DateRangeDetails state={state.fourth.answer} />}
+        {show && (
+          <DateRangeDetails state={state.fourth.answer} question="fourth" />
+        )}
       </View>
       {/* <DatePicker title="From" /> */}
     </DateLogTemplate>

@@ -7,22 +7,33 @@ import {
   View,
   FlatList,
   Button,
+  TouchableOpacity,
 } from "react-native";
 import { dateConflictDetector } from "../dateConflictDetector";
 import { AnswerContext } from "../AnswerContext";
 import { theme } from "../theme";
 import { SummaryBubble } from "../SummaryBubble";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { setObjectValue, getMyObject } from "../storage";
 
 const Item = ({ title }) => <View style={styles.item}>{title}</View>;
 
 export const SummaryPage = (props) => {
-  const { state } = React.useContext(AnswerContext);
+  const {
+    state,
+    name,
+    actions: { getUser },
+  } = React.useContext(AnswerContext);
   const { navigation } = props;
 
   const checkConflict = dateConflictDetector(state);
   console.log(checkConflict.length, "length");
   console.log(checkConflict, "check");
+  console.log(name, "Name");
+
+  const onSubmitClicked = () => {
+    setObjectValue(state, name).then(() => navigation.navigate("ResultPage"));
+  };
 
   const renderItem = ({ item }) => <Item title={item} />;
 
@@ -75,29 +86,33 @@ export const SummaryPage = (props) => {
   return (
     <View style={styles.container}>
       <View>
-        <FlatList data={DATA} renderItem={renderItem} />
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={() => Math.random()}
+        />
       </View>
 
-      <View>
-        {checkConflict.length > 0 ? (
-          <>
-            <Button title="Submit" disabled={true} />
-          </>
-        ) : (
-          <View>
-            <Button
-              title="Submit"
-              onPress={() => navigation.navigate("ResultPage")}
-            />
+      {checkConflict.length > 0 || !state.fifth.answer ? (
+        <View style={styles.buttonContainer}>
+          <View style={styles.disabledContainer}>
+            <Text style={styles.disabled}>Submit</Text>
           </View>
-        )}
-      </View>
+        </View>
+      ) : (
+        <TouchableOpacity
+          onPress={onSubmitClicked}
+          style={styles.buttonContainer}
+        >
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { ...theme.background },
+  container: theme.background,
 
   item: { marginVertical: 12 },
 
@@ -119,4 +134,12 @@ const styles = StyleSheet.create({
   warningContainer: {
     alignItems: "center",
   },
+  button: theme.button,
+  buttonContainer: {
+    ...theme.buttonContainer,
+    height: 60,
+    alignItems: "center",
+  },
+  disabled: { color: "gray", fontSize: 22 },
+  buttonText: { color: theme.background.backgroundColor, fontSize: 22 },
 });

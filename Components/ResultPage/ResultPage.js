@@ -1,61 +1,97 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { AnswerContext } from "../AnswerContext";
-import moment from "moment";
+import { calculationResult } from "./resultCalculations";
+import { theme } from "../theme";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 export const ResultPage = (props) => {
-  const { state } = React.useContext(AnswerContext);
+  const {
+    state,
+    actions: { resetState },
+    setName,
+    setShouldFetch,
+    shouldFetch,
+  } = React.useContext(AnswerContext);
+  const { navigation } = props;
 
-  let sumStudy = 0;
-  let sumWork = 0;
-  let sumStudyWork = 0;
-  let PR = 0;
-  let travel = 0;
-  const dayToMsConst = 86400000;
+  const result = calculationResult(state);
 
-  const calculateDifference = (question) => {
-    let sum = 0;
-    Object.values(question).map((answer) => {
-      sum += (answer.to - answer.from) / dayToMsConst;
-    });
-
-    return sum;
+  const text = {
+    success:
+      "Congratulations! You are eligible to apply for a Canadian Citizenship",
+    fail: "You are not eligible to be able to apply for a Canadian Citizenship. Please see the information below!",
   };
-
-  if (state.second.answer) {
-    sumStudy = calculateDifference(state.second.answer);
-  }
-  if (state.fourth.answer) {
-    sumWork = calculateDifference(state.fourth.answer);
-  }
-  if (state.seventh.answer) {
-    travel = calculateDifference(state.seventh.answer);
-  }
-
-  if ((sumStudy + sumWork) / 2 > 365) {
-    sumStudyWork = 365;
-  } else {
-    sumStudyWork = sumStudy + sumWork;
-  }
-
-  PR = (new Date() - state.fifth.answer.from) / dayToMsConst;
-
-  const remainingDays = Math.round(1095 - PR - sumStudyWork + travel);
-  const eligibilityDate = moment(
-    Date.now() +
-      Math.round(1095 - PR - sumStudyWork + travel) * 24 * 60 * 60 * 1000
-  ).format("DD/MMM/YYYY");
-
-  if (PR + sumStudyWork - travel > 1095) {
-    console.log("Congrats");
-  } else {
-    console.log(`${remainingDays} days more to go`);
-  }
   return (
-    <View>
-      <Text>{`${Math.round(
-        1095 - PR - sumStudyWork + travel
-      )} days more to go. Your eligibility date is ${eligibilityDate}`}</Text>
+    <View style={styles.container}>
+      <View style={{ ...styles.bubbleContainer, marginBottom: 30 }}>
+        {result.eligibility ? (
+          <View style={{ alignItems: "center" }}>
+            <Icon
+              name="celebration"
+              size={60}
+              color={theme.background.backgroundColor}
+              style={{ marginBottom: 20 }}
+            />
+            <Text style={styles.resultText}>{text.success}</Text>
+          </View>
+        ) : (
+          <View style={{ alignItems: "center" }}>
+            <Icon
+              name="sentiment-dissatisfied"
+              size={60}
+              color={theme.background.backgroundColor}
+              style={{ marginBottom: 20 }}
+            />
+            <Text style={styles.resultText}>{text.fail}</Text>
+          </View>
+        )}
+      </View>
+      {!result.eligibility && (
+        <View style={styles.bubbleContainer}>
+          <Text
+            style={{ ...styles.infoText, marginBottom: 10 }}
+          >{`· Remaining days for citizenship: ${result.remainingDays} days`}</Text>
+          <Text
+            style={{ ...styles.infoText, marginBottom: 10 }}
+          >{`· Eligible days to date: ${Math.round(
+            result.PR + result.sumStudyWork
+          )} days`}</Text>
+          <Text
+            style={styles.infoText}
+          >{`· Anticipated eligibility date: ${result.eligibilityDate}`}</Text>
+        </View>
+      )}
+      <View>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => {
+            resetState();
+            setName("");
+            setShouldFetch(!shouldFetch);
+            navigation.navigate("Home");
+          }}
+        >
+          <Text style={styles.buttonText}>Home</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: theme.background,
+  bubbleContainer: theme.bubbleContainer,
+  resultText: {
+    color: theme.background.backgroundColor,
+    textAlign: "center",
+    fontSize: 25,
+  },
+  infoText: { fontSize: 16 },
+  buttonContainer: {
+    ...theme.buttonContainer,
+    height: 60,
+    alignItems: "center",
+  },
+  buttonText: { color: theme.background.backgroundColor, fontSize: 22 },
+});

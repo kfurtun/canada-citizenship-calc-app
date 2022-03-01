@@ -15,8 +15,8 @@ export const TravelLogSecondQuestion = (props) => {
   const {
     state,
     actions: { seventhQuestion },
-    travelIndex,
-    setTravelIndex,
+    // travelIndex,
+    // setTravelIndex,
   } = React.useContext(AnswerContext);
 
   const { navigation } = props;
@@ -36,15 +36,12 @@ export const TravelLogSecondQuestion = (props) => {
   const onAddClick = () => {
     setShow(true);
 
-    seventhQuestion(
-      {
-        from: date.from,
-        to: date.to,
-        destination: text,
-      },
-      travelIndex
-    );
-    setTravelIndex(travelIndex + 1);
+    seventhQuestion({
+      from: date.from,
+      to: date.to,
+      destination: text,
+    });
+    // setTravelIndex(travelIndex + 1);
     onChangeText("");
   };
 
@@ -123,14 +120,22 @@ export const TravelLogSecondQuestion = (props) => {
     </View>,
     <View style={{ marginTop: 10 }}>
       {show && (
-        <DateRangeDetails state={state.seventh.answer} destination={true} />
+        <DateRangeDetails
+          state={state.seventh.answer}
+          destination={true}
+          question="seventh"
+        />
       )}
     </View>,
   ];
 
   return (
     <DateLogTemplate question={state.seventh.question}>
-      <FlatList data={DATA} renderItem={renderItem} />
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={() => Math.random()}
+      />
     </DateLogTemplate>
   );
 };

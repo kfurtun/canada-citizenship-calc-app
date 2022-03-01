@@ -45,4 +45,13 @@ export const theme = {
     backgroundColor: "#B22222",
     minWidth: 80,
   },
+
+  bubbleContainer: {
+    marginLeft: 30,
+    padding: 15,
+    borderRadius: 10,
+    height: "auto",
+    backgroundColor: "white",
+    width: Dimensions.get("window").width - 60,
+  },
 };
