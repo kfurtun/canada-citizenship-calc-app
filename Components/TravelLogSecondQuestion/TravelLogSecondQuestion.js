@@ -131,11 +131,7 @@ export const TravelLogSecondQuestion = (props) => {
 
   return (
     <DateLogTemplate question={state.seventh.question}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={() => Math.random()}
-      />
+      <FlatList data={DATA} renderItem={renderItem} />
     </DateLogTemplate>
   );
 };
