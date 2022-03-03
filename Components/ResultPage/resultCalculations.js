@@ -20,7 +20,7 @@ export const calculationResult = (state) => {
 
     return sum;
   };
-  console.log(state, "state result");
+
   if (state.seventh.answer) {
     Object.values(state.seventh.answer).map((travel) => {
       if (
@@ -73,8 +73,7 @@ export const calculationResult = (state) => {
   } else {
     eligibility = false;
   }
-  console.log(PR, "pr");
-  console.log(state.second.answer, "sumstudywork");
+
   return {
     PR,
     sumStudyWork,

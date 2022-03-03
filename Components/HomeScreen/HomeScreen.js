@@ -26,15 +26,26 @@ export const HomeScreen = ({ navigation }) => {
     actions: { getUser, resetState },
   } = React.useContext(AnswerContext);
 
+  const [shouldButtonDisabled, setShouldButtonDisabled] = React.useState(true);
+
   const startQuestionnaire = () => {
-    console.log(state, "home");
     resetState();
     navigation.navigate("StudyQuestionFirst");
   };
 
   React.useEffect(() => {
     getAllKeys().then((data) => setUsers(data));
-  }, [shouldFetch]);
+
+    const result = users.filter((user) => {
+      return user === name;
+    });
+
+    if (result.length > 0) {
+      setShouldButtonDisabled(false);
+    } else {
+      setShouldButtonDisabled(true);
+    }
+  }, [shouldFetch, name]);
 
   const onUserClicked = (user) => {
     getMyObject(user)
@@ -44,7 +55,7 @@ export const HomeScreen = ({ navigation }) => {
         navigation.navigate("SummaryPage");
       });
   };
-  console.log(users, "users");
+
   return (
     <View style={styles.container}>
       <View style={styles.flagContainer}>
@@ -59,13 +70,22 @@ export const HomeScreen = ({ navigation }) => {
         </Text>
       </View>
       <View style={styles.startContainer}>
-        <TextInput style={styles.input} onChangeText={setName} value={name} />
+        <TextInput
+          style={styles.input}
+          onChangeText={setName}
+          value={name}
+          placeholder="Name"
+        />
         <View style={styles.button}>
-          <Button
-            title="Start"
-            onPress={startQuestionnaire}
-            color={theme.questionText.color}
-          />
+          {name === "" || !shouldButtonDisabled ? (
+            <Button title="Start" disabled />
+          ) : (
+            <Button
+              title="Start"
+              onPress={startQuestionnaire}
+              color={theme.questionText.color}
+            />
+          )}
         </View>
       </View>
       <UserList onUserClicked={onUserClicked} users={users} />

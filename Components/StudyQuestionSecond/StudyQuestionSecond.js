@@ -43,8 +43,6 @@ export const StudyQuestionSecond = (props) => {
     // setStudyIndex(studyIndex + 1);
   };
 
-  console.log(state, "state");
-
   return (
     <DateLogTemplate question={state.second.question}>
       <View>

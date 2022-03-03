@@ -33,7 +33,6 @@ export const PrQuestion = (props) => {
     setDate(new Date());
     setShow(false);
   };
-  console.log(state, "valla son");
 
   return (
     <DateLogTemplate question={state.fifth.question}>

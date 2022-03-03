@@ -27,9 +27,6 @@ export const SummaryPage = (props) => {
   const { navigation } = props;
 
   const checkConflict = dateConflictDetector(state);
-  console.log(checkConflict.length, "length");
-  console.log(checkConflict, "check");
-  console.log(name, "Name");
 
   const onSubmitClicked = () => {
     setObjectValue(state, name).then(() => navigation.navigate("ResultPage"));

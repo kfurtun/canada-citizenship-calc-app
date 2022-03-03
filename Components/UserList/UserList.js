@@ -21,7 +21,7 @@ export const UserList = (props) => {
     removeValue(item);
     setShouldFetch(!shouldFetch);
   };
-  console.log(shouldFetch);
+
   const Item = ({ item }) => {
     return (
       <View style={styles.historyContainer}>

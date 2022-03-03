@@ -35,7 +35,6 @@ export const WorkQuestionSecond = (props) => {
     // setWorkIndex(workIndex + 1);
   };
 
-  console.log(state);
   return (
     <DateLogTemplate question={state.fourth.question}>
       <View>
