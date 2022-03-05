@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "CitizenshipCalculator",
-    "slug": "CitizenshipCalculator",
+    "slug": "citizenshipCalculatorApp",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

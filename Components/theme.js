@@ -5,7 +5,7 @@ export const theme = {
     width: "100%",
     height: "100%",
     paddingTop: 45,
-    backgroundColor: "#B22222",
+    backgroundColor: "#B22221",
   },
 
   questionText: {
