@@ -6,27 +6,21 @@ This is a mobile app that allows users to calculate their eligibility date towar
 
 ## Built with
 
-\*React Native
+- React Native
 
 ## Features/Technologies used
 
-*Expo cli
-*React Native Async Storage
-*React Native Vector Icons
-*React Native Date Picker
-*React Native Radio Buttons Group
-*Moment.js
+- Expo cli
+- React Native Async Storage
+- React Native Vector Icons
+- React Native Date Picker
+- React Native Radio Buttons Group
+- Moment.js
 
 ## Screenshots
 
 ### Home Page
 
-<!-- <table>
- <tr>
-  <td><img src="./_screenshots/home-page.png" width="300"/></td>
-  <td><img src="./_screenshots/home-page-history.png" width="300"/></td>
- </tr>
-</table> -->
 <span>
 <img src="./_screenshots/home-page.png" width="300"/>&nbsp;&nbsp;
 <img src="./_screenshots/home-page-history.png" width="300"/>
@@ -43,7 +37,6 @@ This is a mobile app that allows users to calculate their eligibility date towar
 <img src="./_screenshots/travel.png" width="300"/>&nbsp;&nbsp;
 <img src="./_screenshots/pr-date.png" width="300"/>
 </span>
-
 
 ### Summary
 
