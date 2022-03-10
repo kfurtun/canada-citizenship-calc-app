@@ -21,9 +21,12 @@ This is a mobile app that allows users to calculate their eligibility date towar
 
 ### Home Page
 
-<img src="./_screenshots/home-page.png" width="300"/>
-
-<img src="./_screenshots/home-page-history.png" width="300"/>
+<table>
+ <tr>
+  <td><img src="./_screenshots/home-page.png" width="300"/></td>
+  <td><img src="./_screenshots/home-page-history.png" width="300"/></td>
+ </tr>
+</table>
 
 ### Questions
 
