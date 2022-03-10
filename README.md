@@ -38,12 +38,12 @@ This is a mobile app that allows users to calculate their eligibility date towar
 <img src="./_screenshots/study-question.png" width="300"/>&nbsp;&nbsp;
 <img src="./_screenshots/date-picker.png" width="300"/>
 </span>
-
+ <br />
 <span>
 <img src="./_screenshots/date-picker.png" width="300"/>&nbsp;&nbsp;
 <img src="./_screenshots/pr-date.png" width="300"/>
 </span>
-
+ <br />
 <img src="./_screenshots/travel.png" width="300"/>
 
 ### Summary
