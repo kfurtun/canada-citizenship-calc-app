@@ -14,7 +14,7 @@ export const dateConflictDetector = (state) => {
 
   if (state.seventh.answer) {
     Object.values(state.seventh.answer).forEach((item) => {
-      dateArr.push({ from: new Date(item.from), to: new Date(item.to) });
+      travelArr.push({ from: new Date(item.from), to: new Date(item.to) });
     });
   }
 
