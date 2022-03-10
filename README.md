@@ -22,7 +22,7 @@ This is a mobile app that allows users to calculate their eligibility date towar
 ### Home Page
 
 <table style="border:none">
- <tr>
+ <tr style="border:none">
   <td><img src="./_screenshots/home-page.png" width="300"/></td>
   <td><img src="./_screenshots/home-page-history.png" width="300"/></td>
  </tr>
@@ -31,7 +31,7 @@ This is a mobile app that allows users to calculate their eligibility date towar
 ### Questions
 
 <table>
- <tr>
+ <tr style="border:none">
    <td><img src="./_screenshots/study-question.png" width="300"/></td>
    <td><img src="./_screenshots/date-picker.png" width="300"/></td>
    </tr>
@@ -45,7 +45,7 @@ This is a mobile app that allows users to calculate their eligibility date towar
 </table>
 
  <img src="./_screenshots/travel.png" width="300"/>
- 
+
 ### Summary
 
 <img src="./_screenshots/summary.png" width="300"/>
