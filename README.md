@@ -19,4 +19,10 @@ This is a mobile app that allows users to calculate their eligibility date towar
 
 ## Screenshots
 
-<img src="./_screenshots/home-page.png" width="200"/>
+### Home Page
+
+<img src="./_screenshots/home-page.png" width="300"/>
+
+### Question
+
+<img src="./_screenshots/study-question.png" width="300"/>
