@@ -23,6 +23,20 @@ This is a mobile app that allows users to calculate their eligibility date towar
 
 <img src="./_screenshots/home-page.png" width="300"/>
 
-### Question
+<img src="./_screenshots/home-page-history.png" width="300"/>
+
+### Questions
 
 <img src="./_screenshots/study-question.png" width="300"/>
+<img src="./_screenshots/date-picker.png" width="300"/>
+<img src="./_screenshots/date-picker.png" width="300"/>
+<img src="./_screenshots/pr-date.png" width="300"/>
+<img src="./_screenshots/travel.png" width="300"/>
+
+### Summary
+
+<img src="./_screenshots/summary.png" width="300"/>
+
+### Result
+
+<img src="./_screenshots/result.png" width="300"/>
