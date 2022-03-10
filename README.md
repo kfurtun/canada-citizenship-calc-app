@@ -28,27 +28,23 @@ This is a mobile app that allows users to calculate their eligibility date towar
  </tr>
 </table> -->
 <span>
-<img src="./_screenshots/home-page.png" width="300"/>
+<img src="./_screenshots/home-page.png" width="300"/>&nbsp;&nbsp;
 <img src="./_screenshots/home-page-history.png" width="300"/>
 </span>
 
 ### Questions
 
-<table>
- <tr>
-   <td><img src="./_screenshots/study-question.png" width="300"/></td>
-   <td><img src="./_screenshots/date-picker.png" width="300"/></td>
- </tr>
-</table>
+<span>
+<img src="./_screenshots/study-question.png" width="300"/>&nbsp;&nbsp;
+<img src="./_screenshots/date-picker.png" width="300"/>
+</span>
 
-<table>
- <tr>
-   <td><img src="./_screenshots/date-picker.png" width="300"/></td>
-   <td><img src="./_screenshots/pr-date.png" width="300"/></td>
- </tr>
-</table>
+<span>
+<img src="./_screenshots/date-picker.png" width="300"/>&nbsp;&nbsp;
+<img src="./_screenshots/pr-date.png" width="300"/>
+</span>
 
- <img src="./_screenshots/travel.png" width="300"/>
+<img src="./_screenshots/travel.png" width="300"/>
 
 ### Summary
 
